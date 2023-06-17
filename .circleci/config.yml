@@ -198,6 +198,8 @@ aws cloudformation describe-stack-events --stack-name stack-create-bucket-${CIRC
             --parameter-overrides PipelineID="mybucket-${CIRCLE_WORKFLOW_ID:0:7}" \
             --role-arn arn:aws:iam::874529357876:role/cloudformation-role \
             --region us-east-2
+      - onfail
+
 
   # Exercise: Promote to Production - Job 4
   # Destroy the previous production version's S3 bucket and CloudFormation stack.
@@ -234,7 +236,6 @@ workflows:
       # - create_infrastructure
       # - configure_infrastructure
       - create_and_deploy_front_end
-      - onfail
       - promote_to_production:
           requires:
             - create_and_deploy_front_end
