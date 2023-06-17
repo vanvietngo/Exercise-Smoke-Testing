@@ -169,7 +169,7 @@ jobs:
             --parameter-overrides MyBucketName=mybucket-${CIRCLE_WORKFLOW_ID:0:7}
       - onfail
       # Uncomment the step below if you wish to upload all contents of the current directory to the S3 bucket
-      # - run: aws s3 sync . s3://mybucket-${CIRCLE_WORKFLOW_ID:0:7} --delete
+      - run: aws s3 sync . s3://mybucket-${CIRCLE_WORKFLOW_ID:0:7} --delete
 
 
 
@@ -251,7 +251,7 @@ workflows:
           requires:
             - create_and_deploy_front_end
       - get_last_deployment_id
-      - clean_up_old_front_end:
-          requires:
-            - get_last_deployment_id
-            - promote_to_production
+      # - clean_up_old_front_end:
+      #     requires:
+      #       - get_last_deployment_id
+      #       - promote_to_production
