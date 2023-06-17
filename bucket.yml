@@ -20,7 +20,7 @@ Resources:
       Bucket: !Ref 'WebsiteBucket'
       PolicyDocument:
         Statement:
-        # - Sid: PublicReadForGetBucketObjects
+        - Sid: PublicReadForGetBucketObjects
           Effect: Allow
           Principal: 
             AWS: 
