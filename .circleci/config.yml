@@ -158,7 +158,7 @@ jobs:
           # ${CIRCLE_WORKFLOW_ID:0:5} takes the first 5 chars of the variable CIRCLE_CI_WORKFLOW_ID
           when: on_fail
           command: |
-aws cloudformation describe-stack-events --stack-name stack-create-bucket-${CIRCLE_WORKFLOW_ID:0:7}
+            aws cloudformation describe-stack-events --stack-name stack-create-bucket-${CIRCLE_WORKFLOW_ID:0:7}
 
 
   # Exercise: Promote to Production - Job 2
