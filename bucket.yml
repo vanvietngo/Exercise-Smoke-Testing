@@ -24,6 +24,5 @@ Resources:
           Effect: Allow
           Principal: '*'
           Action: 
-            - s3:GetObject
-            - s3:PutObject
+            - s3:*
           Resource: !Join ['', ['arn:aws:s3:::', !Ref 'WebsiteBucket', /*]]
