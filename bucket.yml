@@ -1,19 +1,24 @@
+# s3 bucket
+# s3 bucket policy
+
 Parameters:
-  # New Bucket name
   MyBucketName:
-    Description: Existing Bucket name
     Type: String
-    
+    Description: Enter the bucket name
+    Default: cameo0034567vietpro
 
 Resources:
-  WebsiteBucket:
+  MyS3Bucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Sub "${MyBucketName}"
-      # AccessControl: PublicRead
-      WebsiteConfiguration:
-        IndexDocument: index.html
-        ErrorDocument: index.html
+      BucketName: 
+        Ref: MyBucketName
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+
   WebsiteBucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
@@ -22,9 +27,23 @@ Resources:
         Statement:
         - Sid: PublicReadForGetBucketObjects
           Effect: Allow
-          Principal: 
-            AWS: 
-              - '*'
-          Action: 
-            - s3:*
+          Principal: '*'
+          Action: s3:GetObject
           Resource: !Join ['', ['arn:aws:s3:::', !Ref 'WebsiteBucket', /*]]
+  # MyBucketPolicy:
+  #   Type: AWS::S3::BucketPolicy
+  #   Properties:
+  #     Bucket: 
+  #       Ref: MyS3Bucket
+  #     PolicyDocument:
+  #       Version: 2012-10-17
+  #       Statement:
+  #         - Action:
+  #             - 's3:GetObject'
+  #           Effect: Allow
+  #           Resource: !Join
+  #             - ''
+  #             - - 'arn:aws:s3:::'
+  #               - !Ref MyS3Bucket
+  #               - /*
+  #           Principal: '*'
