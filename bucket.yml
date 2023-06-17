@@ -1,18 +1,17 @@
-# s3 bucket
-# s3 bucket policy
-
 Parameters:
-  MyBucketName:
-    Type: String
-    Description: Enter the bucket name
-    Default: cameo0034567vietpro
-
+ # New Bucket name
+ MyBucketName:
+   Description: Existing Bucket name
+   Type: String
 Resources:
-  MyS3Bucket:
+  WebsiteBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: 
-        Ref: MyBucketName
+      BucketName: !Sub "${MyBucketName}"
+      AccessControl: PublicRead
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: index.html
       PublicAccessBlockConfiguration:
         BlockPublicAcls: true
         BlockPublicPolicy: true
