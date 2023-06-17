@@ -39,16 +39,16 @@ commands:
              aws cloudformation describe-stack-events --stack-name stack-create-bucket-${CIRCLE_WORKFLOW_ID:0:7} > error.txt
              cat error.txt
                onfail:
-    promote_to_production_fail:
-      steps:
-        - run:
-            name: Destroy environment
-            # ${CIRCLE_WORKFLOW_ID} is a Built-in environment variable
-            # ${CIRCLE_WORKFLOW_ID:0:5} takes the first 5 chars of the variable CIRCLE_CI_WORKFLOW_ID
-            when: on_fail
-            command: |
-              aws cloudformation describe-stack-events --stack-name production-distro > error.txt
-              cat error.txt
+  promote_to_production_fail:
+    steps:
+      - run:
+          name: Destroy environment
+          # ${CIRCLE_WORKFLOW_ID} is a Built-in environment variable
+          # ${CIRCLE_WORKFLOW_ID:0:5} takes the first 5 chars of the variable CIRCLE_CI_WORKFLOW_ID
+          when: on_fail
+          command: |
+            aws cloudformation describe-stack-events --stack-name production-distro > error.txt
+            cat error.txt
 
 jobs:
   # Exercise: Creating a Simple Workflow
@@ -209,7 +209,7 @@ jobs:
             --stack-name production-distro \
             --parameter-overrides PipelineID="mybucket-${CIRCLE_WORKFLOW_ID:0:7}" 
      
-      - onfail
+      - promote_to_production_fail
 
 
   # Exercise: Promote to Production - Job 4
