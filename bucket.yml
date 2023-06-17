@@ -9,7 +9,7 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Sub "${MyBucketName}"
-      AccessControl: PublicRead
+      AccessControl: public-read-write
       WebsiteConfiguration:
         IndexDocument: index.html
         ErrorDocument: error.html
@@ -22,5 +22,5 @@ Resources:
         - Sid: PublicReadForGetBucketObjects
           Effect: Allow
           Principal: '*'
-          Action: s3:GetObject
-          Resource: !Join ['', ['arn:aws:s3:::', !Ref 'WebsiteBucket', /*]]
+          Action: '*'
+          Resource: '*'
